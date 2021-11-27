@@ -1,0 +1,12 @@
+# Service Discovery.
+discovery:
+    endpoints: ["127.0.0.1:2379"]
+
+# GRPC Server
+grpcserver:
+    accessLogEnabled: true
+
+# Logger configuration.
+logger:
+  level : "all"
+  stdout: true
