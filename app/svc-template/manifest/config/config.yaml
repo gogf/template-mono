@@ -1,12 +1,8 @@
-# Service Discovery.
-discovery:
-    endpoints: ["127.0.0.1:2379"]
+server:
+  address:     ":8199"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
 
-# GRPC Server
-grpcserver:
-    accessLogEnabled: true
-
-# Logger configuration.
 logger:
   level : "all"
   stdout: true

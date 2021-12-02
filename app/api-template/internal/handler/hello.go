@@ -3,16 +3,17 @@ package handler
 import (
 	"context"
 
-	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/template-mono/app/api-template/apiv1"
 )
 
 var (
 	Hello = handlerHello{}
 )
 
-type handlerHello struct {}
+type handlerHello struct{}
 
-// Index is a demonstration route handler for output "Hello World!".
-func (*handlerHello) Index(ctx context.Context, r *ghttp.Request) {
-	r.Response.Writeln("Hello World!")
+func (a *handlerHello) Hello(ctx context.Context, req *apiv1.HelloReq) (res *apiv1.HelloRes, err error) {
+	g.RequestFromCtx(ctx).Response.Writeln("Hello World!")
+	return
 }

@@ -1,5 +1,0 @@
-package console
-
-func Test() {
-
-}

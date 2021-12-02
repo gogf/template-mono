@@ -2,9 +2,8 @@ package handler
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/gogf/template-mono/app/svc-template/protobuf"
+	"github.com/gogf/template-mono/app/svc-template/apiv1"
 )
 
 var (
@@ -13,7 +12,6 @@ var (
 
 type handlerEcho struct{}
 
-func (a *handlerEcho) Say(ctx context.Context, r *protobuf.SayReq) (*protobuf.SayRes, error) {
-	text := fmt.Sprintf(`> %s`, r.Content)
-	return &protobuf.SayRes{Content: text}, nil
+func (a *handlerEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
+	return &apiv1.EchoSayRes{Content: req.Content}, nil
 }
