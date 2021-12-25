@@ -7,11 +7,11 @@ import (
 )
 
 var (
-	Echo = &handlerEcho{}
+	Echo = &hEcho{}
 )
 
-type handlerEcho struct{}
+type hEcho struct{}
 
-func (a *handlerEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
+func (h *hEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
 	return &apiv1.EchoSayRes{Content: req.Content}, nil
 }
