@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"context"
@@ -8,12 +8,12 @@ import (
 )
 
 var (
-	Hello = hHello{}
+	Hello = cHello{}
 )
 
-type hHello struct{}
+type cHello struct{}
 
-func (h *hHello) Hello(ctx context.Context, req *apiv1.HelloReq) (res *apiv1.HelloRes, err error) {
+func (h *cHello) Hello(ctx context.Context, req *apiv1.HelloReq) (res *apiv1.HelloRes, err error) {
 	g.RequestFromCtx(ctx).Response.Writeln("Hello World!")
 	return
 }

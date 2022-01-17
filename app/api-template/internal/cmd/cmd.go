@@ -6,7 +6,7 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/template-mono/app/api-template/internal/handler"
+	"github.com/gogf/template-mono/app/api-template/internal/controller"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Bind(
-					handler.Hello,
+					controller.Hello,
 				)
 			})
 			s.Run()
