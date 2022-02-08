@@ -12,6 +12,6 @@ var (
 
 type cEcho struct{}
 
-func (h *cEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
+func (c *cEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
 	return &apiv1.EchoSayRes{Content: req.Content}, nil
 }
