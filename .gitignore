@@ -17,3 +17,4 @@ cbuild
 .test/
 main
 output/
+temp/
