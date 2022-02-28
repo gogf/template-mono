@@ -39,7 +39,7 @@ start:
 image: cli.install
 	$(eval _TAG  = $(if ${TAG},  ${TAG}, latest))
 	$(eval _PUSH = $(if ${PUSH}, ${PUSH}, ))
-	@gf docker -p -b "-a amd64 -s linux -p temp" -t ccr.ccs.tencentyun.com/cdb.khaos.eros/$(DOCKER_NAME):${_TAG};
+	@gf docker -p -b "-a amd64 -s linux -p temp" -t $(DOCKER_NAME):${_TAG};
 
 
 # Build docker image and automatically push to docker repo.
@@ -51,9 +51,11 @@ image.push:
 # Deploy image and yaml to current kubectl environment.
 .PHONY: deploy
 deploy:
+	$(eval _ENV = $(if ${ENV},  ${ENV}, develop-tke))
+
 	@set -e; \
 	mkdir -p $(ROOT_DIR)/temp/kustomize;\
-	cd $(ROOT_DIR)/manifest/deploy/kustomize/overlays/develop;\
+	cd $(ROOT_DIR)/manifest/deploy/kustomize/overlays/${_ENV};\
 	kustomize build > $(ROOT_DIR)/temp/kustomize.yaml;\
 	kubectl   apply -f $(ROOT_DIR)/temp/kustomize.yaml; \
 	kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}";
