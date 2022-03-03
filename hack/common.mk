@@ -55,7 +55,7 @@ image.push:
 # Deploy image and yaml to current kubectl environment.
 .PHONY: deploy
 deploy:
-	$(eval _ENV = $(if ${ENV},  ${ENV}, develop-tke))
+	$(eval _ENV = $(if ${ENV},  ${ENV}, develop))
 
 	@set -e; \
 	mkdir -p $(ROOT_DIR)/temp/kustomize;\
