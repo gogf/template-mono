@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/template-mono/app/api-template/apiv1"
+	"github.com/gogf/template-mono/app/api-template/api/v1"
 )
 
 var (
@@ -13,7 +13,7 @@ var (
 
 type cHello struct{}
 
-func (c *cHello) Hello(ctx context.Context, req *apiv1.HelloReq) (res *apiv1.HelloRes, err error) {
+func (c *cHello) Hello(ctx context.Context, req *v1.HelloReq) (res *v1.HelloRes, err error) {
 	g.RequestFromCtx(ctx).Response.Writeln("Hello World!")
 	return
 }

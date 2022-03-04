@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 
-	"github.com/gogf/template-mono/app/svc-template/apiv1"
+	"github.com/gogf/template-mono/app/svc-template/api/v1"
 )
 
 var (
@@ -12,6 +12,6 @@ var (
 
 type cEcho struct{}
 
-func (c *cEcho) Say(ctx context.Context, req *apiv1.EchoSayReq) (res *apiv1.EchoSayRes, err error) {
-	return &apiv1.EchoSayRes{Content: req.Content}, nil
+func (c *cEcho) Say(ctx context.Context, req *v1.EchoSayReq) (res *v1.EchoSayRes, err error) {
+	return &v1.EchoSayRes{Content: req.Content}, nil
 }
