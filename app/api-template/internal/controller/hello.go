@@ -5,7 +5,7 @@ import (
 
 	"github.com/gogf/gf/v2/frame/g"
 
-	v1 "github.com/gogf/template-mono/app/api-template/api/v1"
+	"github.com/gogf/template-mono/app/api-template/api/v1"
 )
 
 var (
