@@ -4,7 +4,8 @@ import (
 	"context"
 
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/template-mono/app/api-template/api/v1"
+
+	v1 "github.com/gogf/template-mono/app/api-template/api/v1"
 )
 
 var (
