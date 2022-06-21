@@ -24,7 +24,10 @@ cli.install:
 dao: cli.install
 	@gf gen dao
 
-
+# Generate Go files for Service.
+.PHONY: service
+service: cli.install
+	@gf gen service
 
 # Build image, deploy image and yaml to current kubectl environment and make port forward to local machine.
 .PHONY: start
@@ -55,11 +58,11 @@ image.push:
 # Deploy image and yaml to current kubectl environment.
 .PHONY: deploy
 deploy:
-	$(eval _ENV = $(if ${ENV},  ${ENV}, develop))
+	$(eval _TAG = $(if ${TAG},  ${TAG}, develop))
 
 	@set -e; \
 	mkdir -p $(ROOT_DIR)/temp/kustomize;\
-	cd $(ROOT_DIR)/manifest/deploy/kustomize/overlays/${_ENV};\
+	cd $(ROOT_DIR)/manifest/deploy/kustomize/overlays/${_TAG};\
 	kustomize build > $(ROOT_DIR)/temp/kustomize.yaml;\
 	kubectl   apply -f $(ROOT_DIR)/temp/kustomize.yaml; \
 	kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}";
