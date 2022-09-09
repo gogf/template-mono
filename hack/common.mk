@@ -46,7 +46,7 @@ ifneq (, $(shell git status --porcelain 2>/dev/null))
 endif
 	$(eval _TAG  = $(if ${TAG},  ${TAG}, $(_TAG)))
 	$(eval _PUSH = $(if ${PUSH}, ${PUSH}, ))
-	@gf docker -p -b "-a amd64 -s linux -p temp" -t $(DOCKER_NAME):${_TAG};
+	@gf docker -p -b "-a amd64 -s linux -p temp" -tn $(DOCKER_NAME):${_TAG};
 
 
 # Build docker image and automatically push to docker repo.
