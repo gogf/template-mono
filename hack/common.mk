@@ -1,3 +1,4 @@
+GIT_VERSION=$(shell git describe --dirty --always --tags --abbrev=8 --match 'v*' | sed 's/-/./2' | sed 's/-/./2')
 
 # Install/Update to the latest CLI tool.
 .PHONY: cli
@@ -13,7 +14,7 @@ cli:
 .PHONY: cli.install
 cli.install:
 	@set -e; \
-	gf -v > /dev/null 2>&1 || if [[ "$?" -ne "0" ]]; then \
+	gf -v > /dev/null 2>&1 || if [[ "$$?" -ne "0" ]]; then \
   		echo "GoFame CLI is not installed, start proceeding auto installation..."; \
 		make cli; \
 	fi;
@@ -40,10 +41,7 @@ start:
 # Build docker image.
 .PHONY: image
 image: cli.install
-	$(eval _TAG  = $(shell git log -1 --format="%cd.%h" --date=format:"%Y%m%d%H%M%S"))
-ifneq (, $(shell git status --porcelain 2>/dev/null))
-	$(eval _TAG  = $(_TAG).dirty)
-endif
+	$(eval _TAG  = $(if ${TAG},  ${TAG}, $(GIT_VERSION)))
 	$(eval _TAG  = $(if ${TAG},  ${TAG}, $(_TAG)))
 	$(eval _PUSH = $(if ${PUSH}, ${PUSH}, ))
 	@gf docker -p -b "-a amd64 -s linux -p temp" -tn $(DOCKER_NAME):${_TAG};
