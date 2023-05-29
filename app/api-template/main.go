@@ -9,5 +9,5 @@ import (
 )
 
 func main() {
-	cmd.Main.Run(gctx.New())
+	cmd.Main.Run(gctx.GetInitCtx())
 }
