@@ -2,33 +2,38 @@ include ../../hack/hack-cli.mk
 
 # Update GoFrame and its CLI to latest stable version.
 .PHONY: up
-up: cli.check-install
+up: cli.install
 	@gf up -a
 
 # Build binary using configuration from hack/config.yaml.
 .PHONY: build
-build: cli.check-install
-	@gf build
+build: cli.install
+	@gf build -ew
+
+# Parse api and generate controller/sdk.
+.PHONY: ctrl
+ctrl: cli.install
+	@gf gen ctrl
 
 # Generate Go files for DAO/DO/Entity.
 .PHONY: dao
-dao: cli.check-install
+dao: cli.install
 	@gf gen dao
 
 # Parse current project go files and generate enums go file.
 .PHONY: enums
-enums: cli.check-install
+enums: cli.install
 	@gf gen enums
 
 # Generate Go files for Service.
 .PHONY: service
-service: cli.check-install
+service: cli.install
 	@gf gen service
 
 
 # Build docker image.
 .PHONY: image
-image: cli.check-install
+image: cli.install
 	$(eval _TAG  = $(shell git describe --dirty --always --tags --abbrev=8 --match 'v*' | sed 's/-/./2' | sed 's/-/./2'))
 ifneq (, $(shell git status --porcelain 2>/dev/null))
 	$(eval _TAG  = $(_TAG).dirty)
@@ -61,10 +66,10 @@ deploy:
 
 # Parsing protobuf files and generating go files.
 .PHONY: pb
-pb: cli.check-install
+pb: cli.install
 	@gf gen pb
 
 # Generate protobuf files for database tables.
 .PHONY: pbentity
-pbentity: cli.check-install
+pbentity: cli.install
 	@gf gen pbentity

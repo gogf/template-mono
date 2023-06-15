@@ -10,8 +10,8 @@ cli:
 
 
 # Check and install CLI tool.
-.PHONY: cli.check-install
-cli.check-install:
+.PHONY: cli.install
+cli.install:
 	@set -e; \
 	gf -v > /dev/null 2>&1 || if [[ "$?" -ne "0" ]]; then \
   		echo "GoFame CLI is not installed, start proceeding auto installation..."; \
