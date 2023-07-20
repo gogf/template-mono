@@ -20,7 +20,7 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Bind(
-					echo.New(),
+					echo.NewV1(),
 				)
 			})
 			s.Run()
