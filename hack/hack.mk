@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := build
+
 include ../../hack/hack-cli.mk
 
 # Update GoFrame and its CLI to latest stable version.
@@ -45,13 +47,13 @@ endif
 
 # Build docker image and automatically push to docker repo.
 .PHONY: image.push
-image.push:
+image.push: cli.install
 	@make image PUSH=-p;
 
 
 # Deploy image and yaml to current kubectl environment.
 .PHONY: deploy
-deploy:
+deploy: cli.install
 	$(eval _TAG = $(if ${TAG},  ${TAG}, develop))
 
 	@set -e; \
@@ -60,7 +62,7 @@ deploy:
 	kustomize build > $(ROOT_DIR)/temp/kustomize.yaml;\
 	kubectl   apply -f $(ROOT_DIR)/temp/kustomize.yaml; \
 	if [ $(DEPLOY_NAME) != "" ]; then \
-		kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}"; \
+		kubectl patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}"; \
 	fi;
 
 
