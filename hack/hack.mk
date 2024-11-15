@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := build
 
-include ../../hack/hack-cli.mk
+include hack-cli.mk
 
 # Update GoFrame and its CLI to latest stable version.
 .PHONY: up
@@ -36,7 +36,7 @@ service: cli.install
 # Build docker image.
 .PHONY: image
 image: cli.install
-	$(eval _TAG  = $(shell git describe --dirty --always --tags --abbrev=8 --match 'v*' | sed 's/-/./2' | sed 's/-/./2'))
+	$(eval _TAG  = $(shell git rev-parse --short HEAD))
 ifneq (, $(shell git status --porcelain 2>/dev/null))
 	$(eval _TAG  = $(_TAG).dirty)
 endif
@@ -62,7 +62,9 @@ deploy: cli.install
 	kustomize build > $(ROOT_DIR)/temp/kustomize.yaml;\
 	kubectl   apply -f $(ROOT_DIR)/temp/kustomize.yaml; \
 	if [ $(DEPLOY_NAME) != "" ]; then \
-		kubectl patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}"; \
+		kubectl patch \
+		-n $(NAMESPACE) deployment/$(DEPLOY_NAME) \
+		-p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}"; \
 	fi;
 
 

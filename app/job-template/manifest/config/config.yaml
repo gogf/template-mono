@@ -1,3 +1,4 @@
+# https://goframe.org/docs/core/glog-config
 logger:
   level : "all"
   stdout: true
