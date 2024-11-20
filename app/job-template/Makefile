@@ -3,4 +3,5 @@ NAMESPACE   = "default"
 DEPLOY_NAME = "job-template"
 DOCKER_NAME = "job-template"
 
+include ../../hack/hack-cli.mk
 include ../../hack/hack.mk

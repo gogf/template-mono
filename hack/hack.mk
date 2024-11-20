@@ -1,7 +1,5 @@
 .DEFAULT_GOAL := build
 
-include hack-cli.mk
-
 # Update GoFrame and its CLI to latest stable version.
 .PHONY: up
 up: cli.install
